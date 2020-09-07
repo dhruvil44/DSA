@@ -6,32 +6,50 @@ using namespace std;
 
 int knapsack(int weightknapsack,int weight[],int val[],int n)
 {
-  int ans[n+1][weightknapsack+1];
+  int ans[n][weightknapsack+1]={0};
   int i,j;
-  for(i=0;i<=n;i++)
+
+  for(i=0;i<n;i++)
   {
     for(j=0;j<=weightknapsack;j++)
     {
-      if(i==0 || j==0)
+      if(j==0)
       {
         ans[i][j]=0;
+        continue;
       }
 
-      else{
-        if(j-weight[i]<0)
+      if(j<weight[i])
+      {
+        if(i==0)
         {
-          ans[i][j]=ans[i-1][j];
+          ans[i][j]=0;
         }
         else{
-          ans[i][j]=max(ans[i-1][j],ans[i-1][j-weight[i]]+val[i]);
+        ans[i][j]=ans[i-1][j];
+      }
+      }
+      else{
+        if(i==0)
+        {
+          ans[i][j]=val[i];
         }
+        else{
+        ans[i][j]=max(ans[i-1][j],ans[i-1][j-weight[i]]+val[i]);
       }
     }
-
+    }
   }
 
-  return ans[n][weightknapsack];
-
+for(i=0;i<n;i++)
+{
+  for(j=0;j<=weightknapsack;j++)
+  {
+    cout<<ans[i][j]<<" ";
+  }
+  cout << '\n';
+}
+return ans[n-1][weightknapsack];
 }
 
 int main() {
