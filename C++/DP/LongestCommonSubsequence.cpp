@@ -4,6 +4,8 @@
 using namespace std;
 
 
+
+//Bottom Up Approach
 int LCS(string s1,string s2)
 {
   //table for storing the DP calculated values
