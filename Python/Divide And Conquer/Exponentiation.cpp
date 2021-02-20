@@ -5,7 +5,7 @@
 using namespace std;
 
 //calculate a^b in logn complexity
-long long int expo(long long int a,long long int b)
+long long int exponential(long long int a,long long int b)
 {
 
   if(b==0)
@@ -32,7 +32,7 @@ long long int expo(long long int a,long long int b)
 int main()
 {
 
-cout<<expo(2,5);
+cout<<exponential(2,5);
 
 
   return 0;
