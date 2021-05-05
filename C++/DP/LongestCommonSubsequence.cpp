@@ -41,8 +41,8 @@ int LCS(string s1,string s2)
 
 int main()
 {
-string s1 = "abcdabcdab";
-string s2 = "x";
+string s1 = "aggtab";
+string s2 = "gxtxayb";
 
 cout<<LCS(s1,s2);
 

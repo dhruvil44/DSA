@@ -46,8 +46,8 @@ int LCS(string s1,string s2,int l1,int l2)
 
 int main() {
 
-  string s1="abcdxyz";
-  string s2="xyzabcd";
+  string s1="abcd";
+  string s2="abbc";
 
   cout<<LCS(s1,s2,0,0);
 

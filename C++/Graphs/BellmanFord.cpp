@@ -111,7 +111,7 @@ int main()
   g.addEdge(1,3,3);
   g.addEdge(3,4,2);
 
-
-  cout<<g.BellmanFord(1,4);
+  
+//cout<<g.BellmanFord(1,4);
   return 0;
 }

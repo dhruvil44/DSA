@@ -43,7 +43,7 @@ void insertAtEnd(Node* &head, int x)
 }
 
 
-//reversing the LL
+//reversing the LL iterative method
 void reverseLL(Node* &head)
 {
   Node* prev = NULL;
@@ -61,6 +61,8 @@ void reverseLL(Node* &head)
 
   head=prev;
 }
+
+
 
 //print the LL
 void printList(Node* head)
@@ -89,6 +91,8 @@ int main(){
   reverseLL(head);
   printList(head);
   cout<<endl;
+
+
 
   return 0;
 }
