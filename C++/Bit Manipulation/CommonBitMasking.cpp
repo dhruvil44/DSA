@@ -54,6 +54,22 @@ int updateBit(int n, int i, int new_bit) {
 }
 
 
+int clearLastIBits(int n, int i) {
+  int mask = (~0)<<i;
+
+  return (n&mask);
+}
+
+int clearBitsInRangeFromIToJ(int n, int i, int j) {
+  int a = (~0)<<(j+1);
+  int b = (1<<i)-1;
+  int mask = a|b;
+
+  int ans = n&mask;
+  return ans;
+}
+
+
 
 int main() {
 
@@ -69,5 +85,9 @@ int main() {
   cout<<updateBit(5,3,1)<<endl;
 
   cout<<updateBit(5,0,0)<<endl;
+
+  cout<<clearLastIBits(15,3)<<endl;
+
+  cout<<clearBitsInRangeFromIToJ(31,1,3)<<endl;
   return 0;
 }
