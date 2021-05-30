@@ -1,146 +1,89 @@
-//Author:Dhruvil Patel
-
 #include<bits/stdc++.h>
-
 using namespace std;
 
 class Queue{
+  private:
+    int *arr;
+    int front;
+    int rear;
+    int maxSize;
 
-  int front;
-  int rear;
-  int maxSize;
-
-
-public:
-
-  Queue(int maxSize)
-  {
-    front=-1;
-    rear=-1;
-    this->maxSize=maxSize;
-  }
-
-
-  void enqueue(int q[], int data)
-  {
-
-    if((rear+1)%maxSize==front)
-    {
-      cout<<"Queue is full"<<endl;
-      return;
+  public:
+    Queue(int defaultSize=5) {
+      arr = new int[defaultSize];
+      this->maxSize = defaultSize;
+      this->front=-1;
+      this->rear=-1;
+      cout<<"Queue created\n";
     }
 
-
-    if(front==-1 && rear==-1)
-    {
-      front=0;
-      rear=(rear+1)%maxSize;
-      q[rear]=data;
-      return;
+    bool full() {
+      return (((rear+1)%maxSize)==front);
     }
 
+    bool empty() {
 
-    rear = (rear+1)%maxSize;
-    q[rear]=data;
-  }
-
-  void dequeue(int q[])
-  {
-    if(front==-1)
-    {
-      cout<<"Queue is empty"<<endl;
-      return;
-    }
-
-    if(rear==front)
-    {
-      rear=-1;
-      front=-1;
-      return;
-    }
-
-    front=(front+1)%maxSize;
-
-  }
-
-  void printQueue(int q[])
-  {
-    if(front==-1)
-    {
-      cout<<"Queue is empty"<<endl;
-      return;
-    }
-
-    int tempFront=front;
-    while(1)
-    {
-
-      if(tempFront==rear)
-      {
-        cout<<q[tempFront]<<" ";
-        break;
+      if(front==-1) {
+        return true;
       }
 
-      if(tempFront==maxSize)
-      {
-        tempFront=0;
-        continue;
+      return false;
+    }
+
+    void push(int data) {
+
+      if(front==-1) {
+        front=0;
+        rear = (rear+1)%maxSize;
+        arr[rear]=data;
+        cout<<"Pushed "<<data<<"\n";
+        return;
       }
-      cout<<q[tempFront]<<" ";
-      tempFront++;
 
+      if((rear+1)%maxSize==front) {
+        return;
+      }
+
+      rear = (rear+1)%maxSize;
+      arr[rear]=data;
+      cout<<"Pushed "<<data<<"\n";
     }
 
+    void pop() {
 
-  }
+      if(front==-1) {
+        return;
+      }
 
-  int getFront(int q[])
-  {
-    if(front==-1)
-    {
-      cout<<"Queue is empty"<<endl;
-      return -1;
-    }
-    return q[front];
-  }
+      if(front==rear) {
+        front=-1;
+        rear=-1;
+        return;
+      }
 
-  int getRear(int q[])
-  {
-
-    if(rear==-1)
-    {
-      cout<<"Queue is empty"<<endl;
-      return -1;
+      front++;
     }
 
-    return q[rear];
-  }
-
+    int getFront() {
+      return arr[front];
+    }
 
 };
 
+int main() {
 
-int main()
-{
+  Queue q(10);
 
-  Queue queue(6);
-  int q[6];
-queue.enqueue(q,1);
-queue.enqueue(q,2);
-queue.enqueue(q,3);
-queue.enqueue(q,4);
-queue.enqueue(q,5);
-queue.enqueue(q,6);
-queue.dequeue(q);
-queue.dequeue(q);
-queue.dequeue(q);
-queue.dequeue(q);
+  for(int i=1;i<=6;i++) {
+    q.push(i);
+  }
 
-queue.enqueue(q,1);
-queue.dequeue(q);
-queue.dequeue(q);
+  while(!q.empty()) {
+    cout<<q.getFront()<<endl;
+    q.pop();
+  }
 
-queue.printQueue(q);
+
 
   return 0;
 }
