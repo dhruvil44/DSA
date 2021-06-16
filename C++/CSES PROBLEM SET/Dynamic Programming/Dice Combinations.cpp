@@ -1,33 +1,27 @@
-//Author: Dhruvil Patel(DP)
+
 
 #include<bits/stdc++.h>
-
 using namespace std;
 
-int main()
-{
+int main() {
 
-  long long int n;
-  cin>>n;
+    int n;
+    cin>>n;
+    const int mod = 1e9+7;
+    vector<int> dp(n+1);
 
-  vector<long long int>dp(n+1);
-  dp[0]=0;
-  dp[1]=1;
-
-  for(long long int i=2;i<=n;i++)
-  {
-    for(int j=1;j<=6;j++)
-    {
-      if(i-j>=0)
-        dp[i]+=1+dp[i-j];
-
-      else{
-        break;
-      }
+    dp[0]=0;
+    for(int i=1;i<=min(n,6);i++) {
+      dp[i]=1;
     }
-  }
 
-  cout<<dp[n]<<endl;
-
-  return 0;
+    for(int i=2;i<=n;i++) {
+        for(int j=1;j<=6;j++) {
+            if(i>j) {
+                dp[i] = (dp[i] + dp[i-j])%mod;
+            }
+        }
+    }
+    cout<<dp[n]%mod<<endl;
+    return 0;
 }
