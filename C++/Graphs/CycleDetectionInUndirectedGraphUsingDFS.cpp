@@ -20,7 +20,7 @@ public:
 
   map<int,bool>visited;
 
-  bool iscycle_helper_dfs(int src,int lastnode)
+  bool iscycle_helper_dfs(int src,int parent)
   {
     visited[src]=true;
 
@@ -35,7 +35,7 @@ public:
       }
 
       else{
-        if(x!=lastnode)
+        if(x!=parent)
         {
           return true;
         }
@@ -44,9 +44,6 @@ public:
 
     return false;
     }
-
-
-
 
 
 };

@@ -1,115 +1,96 @@
-//Author:Dhruvil Patel(DP)
-#include<bits/stdc++.h>
+//Author: Dhruvil Patel
 
+#include<bits/stdc++.h>
 using namespace std;
 
 class Graph{
 
-unordered_map<string,list<pair<string,int> > >L;
+private:
+  map<int,list<pair<int,int> > > l;
 
 public:
-  void addEdge(string x,string y,int weight)
-  {
-    L[x].push_back({y,weight});
-    L[y].push_back({x,weight});
+  void addEdge(int x, int y, int weight, bool bidirectional=true) {
+    l[x].push_back(make_pair(y,weight));
+
+    if(bidirectional) {
+      l[y].push_back(make_pair(x,weight));
+    }
   }
 
-  map<string,int> dis;
-  void dijkstra(string src)
-  {
 
+  void dijkstra (int src) {
 
-    map<string,bool> visited;
-
-    for(auto x:L)
-    {
-      if(x.first==src)
-      {
-        dis[x.first]=0;
-      }
-      else{
-      dis[x.first]=INT_MAX;
-      }
+    map<int,int> dis;
+    for(auto x: l) {
+      dis[x.first] = INT_MAX;
     }
 
+    dis[src]=0;
 
-  for(auto x:L)
-  {
-    visited[x.first]=false;
-  }
+            //dis,node
+    set<pair<int,int> >s;
+    s.insert(make_pair(0,src));
 
 
-  //Code for Logic begins here
-  while(1)
-  {
-      for(auto p:L[src])
-      {
-        if(!visited[p.first])
-        {
-          if(dis[src]+p.second < dis[p.first])
-            {
-              dis[p.first]=dis[src]+p.second;
-            }
+    while(!s.empty()) {
+
+      auto p = *(s.begin());
+      int node = p.second;
+      int nodeDis = p.first;
+
+      s.erase(s.begin());
+
+      for(auto x: l[node]) {
+        if(nodeDis + x.second < dis[x.first]) {
+
+
+          auto it = s.find(make_pair(dis[x.first],x.first));
+
+          if(it!=s.end()) {
+            s.erase(it);
+          }
+
+          dis[x.first] = nodeDis + x.second;
+          s.insert(make_pair(dis[x.first],x.first));
         }
-
       }
 
-    visited[src]=true;
-
-    int mindis=INT_MAX;
-    string u;
-    int f=0;
-    for(auto x:dis)
-    {
-      if(x.second<mindis && !visited[x.first])
-      {
-        f=1;
-        mindis=x.second;
-        u=x.first;
-      }
     }
 
-    if(f==0)
-    {
-      break;
-    }
-    else{
-      src=u;
-      continue;
+    for(auto x: dis) {
+      cout<<"The distance of "<<x.first<<" from "<<src<<" is "<<x.second<<endl;
     }
 
   }
-
-
-}
-
-void printdistance()
-{
-  for(auto x:dis)
-  {
-    cout<<x.first<<"->"<<x.second<<endl;
-  }
-}
-
 
 };
 
-int main()
-{
 
-Graph g;
-g.addEdge("A","B",8);
-g.addEdge("A","D",9);
-g.addEdge("A","C",6);
-g.addEdge("C","D",1);
-g.addEdge("B","D",4);
-g.addEdge("E","D",2);
-g.addEdge("D","G",5);
-g.addEdge("D","F",3);
-g.addEdge("G","F",2);
-g.addEdge("G","E",1);
+int main() {
 
-g.dijkstra("D");
-g.printdistance();
+  Graph g;
+  g.addEdge(1,2,1);
+  g.addEdge(1,3,4);
+  g.addEdge(2,3,1);
+  g.addEdge(3,4,2);
+  g.addEdge(1,4,7);
+
+  g.dijkstra(1);
+
+  cout<<endl;
+
+  Graph g1;
+  g1.addEdge(0,1,4);
+  g1.addEdge(0,2,1);
+  g1.addEdge(1,2,2);
+  g1.addEdge(2,5,1);
+  g1.addEdge(5,4,2);
+  g1.addEdge(3,4,3);
+  g1.addEdge(1,3,8);
+
+  g1.dijkstra(0);
+
+
+
   return 0;
 }
