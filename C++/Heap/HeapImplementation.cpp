@@ -1,139 +1,121 @@
 //Author: Dhruvil Patel
 
 #include<bits/stdc++.h>
-
 using namespace std;
 
-
-class Heap {
+class Heap{
 
 private:
-  vector<int> heap;
-  bool isMinHeap=true;
+  vector<int> v;
+  bool type;
+
+  bool compare(int child, int parent, bool type) {
+    if(type==true) {
+      return child<parent;
+    }
+
+    else{
+      return child>parent;
+    }
+  }
 
 public:
-
-  //initializing the Heap
-  Heap(bool isMinHeap) {
-    heap.push_back(-1);
-    this->isMinHeap=isMinHeap;
-  }
-
-  bool compare(int a, int b) {
-    if(this->isMinHeap) {
-      return a<b;
-    }
-
-    return a>b;
+  Heap(int initialSize, bool type=true) {
+    v.reserve(initialSize);
+    v.push_back(-1);
+    this->type = type;
   }
 
 
-  void insert(int data) {
-    heap.push_back(data);
-    this->heapifyInsert();
-    cout<<"Top of the heap is "<<heap[1]<<endl;
-  }
+  void push(int data) {
+    v.push_back(data);
 
-  void heapifyInsert() {
+    int idx = v.size()-1;
+    int parent = idx/2;
 
-    int child=heap.size()-1;
-    int parent=child/2;
-
-    while(compare(heap[child],heap[parent]) && child!=1) {
-      swap(heap[child],heap[parent]);
-      child=parent;
-      parent=child/2;
-    }
-  }
-
-  //either delete the first element or the last element
-  void deleteData(int data) {
-    if(data!=heap[1] && data!=heap[heap.size()-1]) {
-      cout<<"Enter valid data";
-      return;
-    }
-
-    if(heap[1]==data) {
-      swap(heap[1],heap[heap.size()-1]);
-    }
-    heap.pop_back();
-    this->heapifyDelete();
-  }
-
-  void heapifyDelete() {
-    int parent=1;
-    int childOne=parent*2;
-    int childTwo=childOne+1;
-
-    if(childTwo>=heap.size()) {
-      childTwo=childOne;
-    }
-
-    while(childOne<heap.size() && compare(min(heap[childOne],heap[childTwo]),heap[parent])) {
-      int indexToSwapWith=heap[childOne]<heap[childTwo]?childOne:childTwo;
-      swap(heap[parent],heap[indexToSwapWith]);
-      parent=indexToSwapWith;
-      childOne=parent*2;
-      childTwo=childOne+1;
+    while(idx>1 and compare(v[idx],v[parent],type)) {
+      swap(v[idx],v[parent]);
+      idx=parent;
+      parent=parent/2;
     }
   }
 
 
-  void printHeap() {
-    for(auto x: heap) {
-      cout<<x<<" ";
-    }
-    cout<<endl;
+  int top() {
+    return v[1];
   }
 
+  void heapify(int idx) {
+    int idxToSwap = idx;
+    int size = v.size();
+
+    int left_idx = idx*2;
+    int right_idx = left_idx+1;
+
+    if(left_idx<size) {
+      if(type==true) {
+        if(v[left_idx]<v[idx]) {
+          idxToSwap = left_idx;
+        }
+      }
+      else{
+        if(v[left_idx]>v[idx]) {
+          idxToSwap = left_idx;
+        }
+      }
+    }
+
+    if(right_idx<size) {
+      if(type==true) {
+        if(v[right_idx]<v[idxToSwap]) {
+          idxToSwap = right_idx;
+        }
+      }
+
+      else{
+        if(v[right_idx]>v[idxToSwap]) {
+          idxToSwap = right_idx;
+        }
+      }
+    }
+
+    if(idxToSwap!=idx) {
+      swap(v[idx],v[idxToSwap]);
+      heapify(idxToSwap);
+    }
+  }
+
+  void pop() {
+    swap(v[1],v[v.size()-1]);
+    v.pop_back();
+
+    heapify(1);
+  }
+
+  bool empty() {
+    return v.size()==1;
+  }
 
 };
 
 
 int main() {
 
-  Heap heap(false);
-  heap.insert(100);
-  heap.insert(25);
-  heap.insert(1);
-  heap.insert(2);
-  heap.insert(7);
-  heap.insert(36);
-  heap.insert(3);
-  heap.insert(17);
-  heap.insert(19);
-  heap.insert(0);
-  cout<<"Printing heap\n";
-  heap.printHeap();
+  Heap h(10,false);
 
-  heap.deleteData(0);
-  cout<<"Printing Heap\n";
-  heap.printHeap();
+  h.push(4);
+  h.push(5);
+  h.push(43);
+  h.push(5);
+  h.push(0);
+  h.push(7);
+  h.push(4);
+  h.push(5);
 
-  heap.deleteData(1);
-  cout<<"Printing Heap\n";
-  heap.printHeap();
-
-  Heap heap2(true);
-  heap2.insert(4);
-  heap2.insert(9);
-  heap2.insert(6);
-  cout<<"Printing 2nd Heap\n";
-  heap2.printHeap();
-
-  heap2.deleteData(4);
-  cout<<"Printing 2nd Heap\n";
-  heap2.printHeap();
-
-  heap2.deleteData(6);
-  cout<<"Printing 2nd Heap\n";
-  heap2.printHeap();
-
-  heap2.deleteData(9);
-  cout<<"Printing 2nd Heap\n";
-  heap2.printHeap();
-
-
+  while(!h.empty()) {
+    cout<<h.top()<<" ";
+    h.pop();
+  }
 
 
   return 0;
