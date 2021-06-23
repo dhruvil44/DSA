@@ -5,6 +5,10 @@ using namespace std;
 
 //Cycle Detection In Directed Graph Using DFS.
 
+//There is a slight variation in cycle detection in Directed GRAPH than in Undirected GRAPH.
+//Here we have a stack which stores the path which we have till now followed.
+//And in any case if we move to a node which was already in our stack that means it is already
+//a part of our path than we can say that it contains cycle.
 class Graph{
 private:
   map<int,list<int> >l;

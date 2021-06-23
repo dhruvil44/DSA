@@ -27,6 +27,9 @@ public:
 
     dis[src]=0;
 
+    //We use set because set by default stores the value in increasing order.
+    //And here we want that the minimum distance node should be first, thats why we use a set.
+
             //dis,node
     set<pair<int,int> >s;
     s.insert(make_pair(0,src));
@@ -34,16 +37,18 @@ public:
 
     while(!s.empty()) {
 
+      //fetching the first element of the set
       auto p = *(s.begin());
       int node = p.second;
       int nodeDis = p.first;
 
+      //popping the first element
       s.erase(s.begin());
 
       for(auto x: l[node]) {
         if(nodeDis + x.second < dis[x.first]) {
 
-
+          
           auto it = s.find(make_pair(dis[x.first],x.first));
 
           if(it!=s.end()) {

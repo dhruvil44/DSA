@@ -10,8 +10,8 @@ using namespace std;
 class Graph{
 
 private:
-  int V;
-  list<pair<int,int> >l;
+  int V;  //number of vertices
+  list<pair<int,int> >l; //edge list
 
 public:
   void addEdge(int x, int y) {
