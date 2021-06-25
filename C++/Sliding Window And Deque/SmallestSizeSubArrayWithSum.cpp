@@ -31,7 +31,8 @@ for(int end=0;end<n;end++)
       if(sum>=s)
       {
       smallestize=min(smallestize,end-start+1);
-    }
+      }
+
     }
 
 
