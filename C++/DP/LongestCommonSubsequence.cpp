@@ -34,6 +34,31 @@ int LCS(string s1,string s2)
   }
 
 
+  string lcs = "";
+  //printing the longest common subsequece
+  int row = s1.length();
+  int col = s2.length();
+
+  while(row>0 and col>0) {
+    if(ans[row][col-1]==ans[row][col]) {
+      col--;
+    }
+
+    else if(ans[row-1][col]==ans[row][col]) {
+      row--;
+    }
+
+    else{
+      lcs.push_back(s1[row-1]);
+      row--;
+      col--;
+    }
+  }
+
+  reverse(lcs.begin(),lcs.end());
+  cout<<lcs<<endl;
+
+
   return ans[s1.length()][s2.length()];
 
 }
