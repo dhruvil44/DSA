@@ -63,6 +63,21 @@ void reverseLL(Node* &head)
 }
 
 
+//reversing the LL recursively
+Node* recursiveReverse(Node* head) {
+  if(head==NULL || head->next==NULL) {
+    return head;
+  }
+
+  Node* new_head = recursiveReverse(head->next);
+
+  head->next->next = head;
+  head->next = NULL;
+
+  return new_head;
+}
+
+
 
 //print the LL
 void printList(Node* head)
@@ -90,6 +105,10 @@ int main(){
 
   reverseLL(head);
   printList(head);
+  cout<<endl;
+
+  Node* rev_head = recursiveReverse(head);
+  printList(rev_head);
   cout<<endl;
 
 
