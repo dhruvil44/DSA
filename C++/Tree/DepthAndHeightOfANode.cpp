@@ -60,22 +60,14 @@ int height(struct node *root)
 
 if(root==NULL)
 {
-  return -1;
+  return 0;
 }
 
 
 int l  = height(root->left);
 int r = height(root->right);
 
-if(l>r)
-{
-  return l+1;
-}
-else{
-  return r+1;
-}
-
-
+return 1+max(l,r);
 }
 
 
@@ -100,7 +92,7 @@ int main()
   cout<<height(root);
   cout<<endl;
 
-  
+
 
   return 0;
 }

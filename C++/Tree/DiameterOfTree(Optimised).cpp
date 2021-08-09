@@ -1,8 +1,8 @@
-/*Author : Dhruvil Patel(DP)*/
+//Author:Dhruvil Patel
 
 #include<bits/stdc++.h>
-
 using namespace std;
+
 
 struct node{
 
@@ -23,42 +23,32 @@ struct node * create(int x)
   return newnode;
 }
 
-int height(struct node *root)
-{
-if(root==NULL)
-{
-  return 0;
-}
+class Pair{
+public:
+  int height;
+  int diameter;
+};
 
-int l  = height(root->left);
-int r = height(root->right);
+Pair diameter_optimised(node* root) {
 
-return 1+max(l,r);
-}
-
-
-//O(N^2) Time Complexity
-int diameter(struct node *root)
-{
-  if(root==NULL)
-  {
-    return 0;
+  Pair p;
+  if(root==NULL) {
+    p.height=0;
+    p.diameter=0;
+    return p;
   }
 
-  int x=height(root->left);
-  int y=height(root->right);
+  Pair left = diameter_optimised(root->left);
+  Pair right = diameter_optimised(root->right);
 
-  int ldiam=diameter(root->left);
-  int rdiam=diameter(root->right);
+  p.height = max(left.height,right.height)+1;
+  p.diameter = max({left.height+right.height , left.diameter, right.diameter});
 
-  return max({x+y,ldiam,rdiam});
-
+  return p;
 }
 
+int main() {
 
-
-int main()
-{
   struct node * root;
   root = create(4);
 
@@ -70,6 +60,8 @@ int main()
   root->right->left=create(7);
   root->right->right=create(5);
 
-  cout<<diameter(root);
-
+  Pair p = diameter_optimised(root);
+  cout<<p.height<<endl;
+  cout<<p.diameter<<endl;
+  return 0;
 }
