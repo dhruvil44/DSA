@@ -3,44 +3,36 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-void generate_subsequence(int i, vector<int> v, list<int> subsequence) {
+void generate_subsequence(int i, int v[], int n, int j, int subsequence[]) {
 
-
-  if(i==v.size()) {
-
+  if(i==n) {
+    int idx=0;
+    while(idx<j) {
+      cout<<subsequence[idx++]<<" ";
+    }
+    cout<<endl;
     return;
   }
 
-  for(auto x: subsequence) {
-    cout<<x<<" ";
-  }
-  cout<<endl;
+  //include the current element
+  subsequence[j] = v[i];
+  generate_subsequence(i+1, v, n, j+1, subsequence);
 
 
-
-  //either include this ith element in the subsequence
-  subsequence.push_back(v[i]);
-  generate_subsequence(i+1,v,subsequence);
-
-  //or discard this ith element
-  subsequence.pop_back();
-  // generate_subsequence(i+1,v,subsequence);
+  //discard the current element
+  generate_subsequence(i+1,v, n , j,subsequence);
 
 }
 
 int main() {
 
-  vector<int> v(3);
+    int v[4] = {1,2,3,4};
 
-  for(int i=0;i<3;i++) {
-    v.push_back(i+1);
-  }
+    int n = 4;
 
-  list<int> subsequence;
+    int subsequence[100];
 
-  generate_subsequence(0,v,subsequence);
-
-
+    generate_subsequence(0,v,4,0,subsequence);
 
   return 0;
 }

@@ -7,9 +7,9 @@ class Heap{
 
 private:
   vector<int> v;
-  bool type;
+  bool minHeap;
 
-  bool compare(int child, int parent, bool type) {
+  bool compare(int child, int parent, bool minHeap) {
     if(type==true) {
       return child<parent;
     }
@@ -20,7 +20,7 @@ private:
   }
 
 public:
-  Heap(int initialSize, bool type=true) {
+  Heap(int initialSize, bool minHeap=true) {
     v.reserve(initialSize);
     v.push_back(-1);
     this->type = type;
