@@ -125,7 +125,7 @@ int main(){
   //1-> 2-> 3-> 4-> 5
 //      ^-> -> -> ->^
 
-  cout<<detectCycle(head);
+  cout<<detectCycle(head)<<endl;
 
   removeCycle(head);
   cout<<endl;
