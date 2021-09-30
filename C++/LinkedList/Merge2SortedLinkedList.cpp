@@ -77,6 +77,66 @@ Node* mergeLL(Node* head1, Node* head2){
 
 
 
+//Iterative merge
+Node* mergeIterative(Node* head1, Node* head2) {
+  Node* head=NULL;
+  Node* ptr;
+
+  while(head1!=NULL and head2!=NULL) {
+    if(head1->data < head2->data) {
+      if(head==NULL) {
+        head = head1;
+        ptr = head;
+      }
+      else{
+        ptr->next = head1;
+        ptr = ptr->next;
+      }
+      head1=head1->next;
+    }
+
+    else{
+      if(head==NULL) {
+        head = head2;
+        ptr = head;
+      }
+      else{
+        ptr->next = head2;
+        ptr = ptr->next;
+      }
+      head2 = head2->next;
+    }
+  }
+
+  while(head1!=NULL) {
+    if(head==NULL) {
+      head = head1;
+      ptr = head;
+    }
+    else{
+      ptr->next = head1;
+      ptr = ptr->next;
+    }
+    head1 = head1->next;
+  }
+
+  while(head2!=NULL) {
+    if(head==NULL) {
+      head = head2;
+      ptr = head;
+    }
+    else{
+      ptr->next = head2;
+      ptr = ptr->next;
+    }
+    head2 = head2->next;
+  }
+
+  return head;
+}
+
+
+
 //print the LL
 void printList(Node* head)
 {
