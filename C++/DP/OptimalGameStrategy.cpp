@@ -52,10 +52,10 @@ int helper_top_down(int i, int j, int a[], int dp[][100]) {
   }
 
   //if the player1 selects the ith element
-  int option1 = a[i] + min(helper(i+2,j,a),helper(i+1,j-1,a));
+  int option1 = a[i] + min(helper_top_down(i+2,j,a),helper_top_down(i+1,j-1,a));
 
   //if the player1 selects the jth element
-  int option2 = a[j] + min(helper(i+1,j-1,a),helper(i,j-2,a));
+  int option2 = a[j] + min(helper_top_down(i+1,j-1,a),helper_top_down(i,j-2,a));
 
   return dp[i][j] = max(option1,option2);
 

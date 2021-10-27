@@ -61,8 +61,55 @@ while(1)
 }
 
 
+struct node* deletenode(struct node* root, int key) {
 
+  if(root==NULL) {
+    return NULL;
+  }
 
+  if(root->data==key) {
+
+    //if its a leaf node
+    if(root->left==NULL and root->right==NULL) {
+      return NULL;
+    }
+
+    //if only left subtree is present
+    if(root->left and !root->right) {
+      return root->left;
+    }
+
+    //if only right subtree is present
+    if(root->right and !root->left) {
+      return root->right;
+    }
+
+    if(root->left and root->right) {
+      struct node* temp = root->left;
+      while(temp->right) {
+        temp = temp->right;
+      }
+
+      int d = temp->data;
+      temp->data = root->data;
+      root->data = d;
+
+      root->left = deletenode(root->left, temp->data);
+
+    }
+
+  }
+
+  if(root->data > key) {
+    root->left = deletenode(root->left, key);
+  }
+
+  if(root->data < key) {
+    root->right = deletenode(root->right, key);
+  }
+
+  return root;
+}
 
 
 
@@ -95,7 +142,7 @@ int main()
   inorder(root);
   cout<<endl;
 
-  deletenode(&root,12);
+  root = deletenode(root,12);
   inorder(root);
   cout<<endl;
 
