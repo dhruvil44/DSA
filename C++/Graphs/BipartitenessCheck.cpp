@@ -16,6 +16,7 @@ public:
 
   }
 
+  //node    visited color
   map<int,pair<bool,int> >visited;
 
   bool isBipartite_DFS(int src,int c){
@@ -25,10 +26,12 @@ public:
 
     for(auto x:l[src])
     {
+      //if the nbr is not visited then visit it
       if(!((visited[x]).first))
       {
         if(c==0)
         {
+          //mark the color of the nbr as 1 and call further
           if(!isBipartite_DFS(x,1))
           {
             return false;
@@ -37,13 +40,15 @@ public:
 
         else
         {
-
+          //mark the color of the nbr as 0 and call further
           if(!isBipartite_DFS(x,0))
           {
             return false;
           }
         }
       }
+
+      //if the nbr is visited then check if the color of the nbr is same as the current node..if it is then return false.
       else{
         if(visited[x].second == visited[src].second)
         {

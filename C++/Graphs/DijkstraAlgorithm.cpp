@@ -48,7 +48,7 @@ public:
       for(auto x: l[node]) {
         if(nodeDis + x.second < dis[x.first]) {
 
-          
+
           auto it = s.find(make_pair(dis[x.first],x.first));
 
           if(it!=s.end()) {
