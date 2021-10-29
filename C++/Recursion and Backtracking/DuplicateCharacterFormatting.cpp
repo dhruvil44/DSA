@@ -4,7 +4,7 @@
 using namespace std;
 
 /*
-Take as input str, a string. Write a recursive function which
+Take an input str, a string. Write a recursive function which
 returns a new string in which all duplicate consecutive characters are separated by a ‘ * ’.
 E.g. for “hello” return “hel*lo”. Print the value returned
 */

@@ -26,6 +26,8 @@ void find_all_paths(int grid[][10], int i, int j, int rows, int cols, int soluti
     }
 
     cout<<endl<<endl;
+    
+    solution[i][j] = 0;
     return;
   }
 
@@ -84,5 +86,7 @@ int main() {
   cout<<endl<<endl;
 
   cout<<"The total number of ways = "<<no_of_ways(grid,0,0,rows,cols)<<endl;
+
+
   return 0;
 }
